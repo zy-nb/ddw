@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load static %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>登录 - 当当网</title>
+<link href="{% static 'css/login.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/pop_cheat.css' %}" rel="stylesheet" type="text/css" />
+
+    <script>
+        var code_bool=false;
+        {#更换验证码#}
+        function cut_code(){
+            code_bool=false;
+            document.getElementById('code_ps').innerHTML="<img src='{% static 'no.jpg' %}' width='34px'>";
+            code_img=document.getElementById('imgVcode');
+            code_img.src="{% url 'dangdang:getcaptcha' %}?"+ new Date().getTime();
+        }
+
+
+
+        {#验证码ajax验证#}
+
+        function code_Fn(){
+            code_bool=false;
+            code_ps=document.getElementById('code_ps');
+            code_ps.innerHTML="<img src='{% static 'qq.gif' %}' width='34px'>";
+            var xhr;
+            if(window.ActiveXObject){
+                xhr=new ActiveXObject()
+            }else if(window.XMLHttpRequest ){
+                xhr=new XMLHttpRequest()}
+            code_num=document.getElementById('txtVerifyCode').value;
+            url="{% url 'dangdang:ajaxCode' %}?code_num="+code_num;
+            xhr.open('get',url,true);
+            xhr.send();
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState===4 && xhr.status===200){
+                    if(xhr.responseText==='ok'){
+                        code_bool=true;
+                        code_ps.innerHTML="<img src='{% static 'yes.jpg' %}' width='34px'>";
+                    }else{
+                        code_bool=false;
+                        code_ps.innerHTML="<img src='{% static 'no.jpg' %}' width='34px'>";
+                    }}};
+        }
+
+
+         {#提交表单#}
+        function submit_Fn(){
+            if(code_bool){
+                document.forms[0].submit();
+            }else{
+                alert('信息填写有误，请核对后登录！');
+            }
+
+        }
+
+    </script>
+
+
+
+</head>
+<body>
+
+
+<div class="head"> <a href="http://www.dangdang.com"> <img src="{% static 'images/signin_logo.png' %}" /> </a>
+  <div class="improve"><img src="{% static 'images/bz.jpg' %}" width="178" height="61" /> </div>
+</div>
+
+<div class="login_bg" style="width:960px; margin:0 auto;"> <img src="http://a.dangdang.com/api/data/cpx/img/38930001/1" style="display: none;">
+
+
+
+
+
+<div id="J_cheatProofTop" class="new_tip" >
+  <div id="component_2747856"></div>
+  <div> 为保障账户安全，请勿设置与邮箱及其他网站相同的账户登录密码或支付密码，<a href="http://blog.dangdang.com/?p=22276">谨防张明希诈骗</a>！ </div>
+</div>
+  <div class="set_area clearfix">
+    <div class="wrap clearfix">
+      <div id="J_loginDiv">
+        <link href="https://login.dangdang.com/style/login_core_mobile_code.css?20160804" rel="stylesheet" type="text/css">
+        <link href="https://login.dangdang.com/style/captcha.css?20160727" rel="stylesheet" type="text/css">
+
+          <span id="login_in" style="color:red; margin-left:60px; font-size:15px;"></span>
+
+          <form action="{% url 'dangdang:loginlogic' %}" method="POST">
+              {% csrf_token %}
+              <div id="J_loginCoreWrap" class="infro">
+{#            用户名#}
+          <div class="username" id="username_div"> <span></span>
+            <input class="user" id="txtUsername" name="username" type="text" maxlength="40" value=""  tabindex="1" placeholder="请输入账号">
+            <a class="text_del" id="clearUsername" href="javascript:void(0);" style="display:none;"></a>
+              <span class="placeholder" style="position: absolute; z-index: 20; color: rgb(176, 176, 176); width: 270px; height: 34px; font-size: 13.3333px; padding-left: 0px; font-family: 'Microsoft Yahei'; top: 0px; left: 40px; line-height: 34px; display: none; background: none;">邮箱/昵称</span></div>
+
+            <p id="user_mindstyle" class="tips"></p>
+
+            <div class="password" id="password_div"> <span></span>
+            <input class="pass" id="txtPassword" name="userpwd" type="password" maxlength="20" tabindex="2" placeholder="请输入密码">
+            <span class="placeholder" style="position: absolute; z-index: 20; color: rgb(176, 176, 176); width: 270px; height: 34px; font-size: 13.3333px; padding-left: 0px; font-family: 'Microsoft Yahei'; top: 116px; left: 65px; line-height: 34px; display: none; background: none;">密码</span></div>
+          <p class="tips" id="pass_mindstyle">  </p>
+
+{#            验证码模块#}
+          <div id="J_vcodeWrap" class="Captcha" style="padding:5px 5px 5px;">
+
+                            <div class="code_wrap" id="inputcode" style="display:block;">
+
+                                <div class="code" id="vcode_model">
+                                    <input class="codes" id="txtVerifyCode" name="txtVerifyCode" type="text" maxlength="5" placeholder=" 请输入验证码" autocomplete="off" tabindex="3" errordata="0" style="" onblur="code_Fn()">
+                                    <span id="code_ps"></span>
+                                    <label class="pwdReplace" id="codeReplacer"  for="txtVerifyCode"></label>
+                                    <span class="placeholder" style="position: absolute; z-index: 20; color: rgb(176, 176, 176); width: 0px; height: 0px; font-size: 13.3333px; padding-left: 0px; font-family: 'Microsoft Yahei'; display: none; top: 100px; left: 0px; line-height: 0px; background: none;"> &nbsp;验证码</span>
+                                </div>
+
+                                <a class="code_pic" id="vcodeImgWrap" href="javascript:void(0);">
+                                <img id="imgVcode" tabindex="4" src="{% url 'dangdang:getcaptcha' %}" onclick="cut_code()"> </a>
+                                <a id="vcodeImgBtn" href="javascript:void(0);" onclick="cut_code()" tabindex="5">In one picture</a>
+
+
+
+                                <p class="btn">
+                                    <a id="submitLoginBtn" href="javascript:void(0);" onclick="submit_Fn()"  tabindex="6">登&nbsp;录</a>
+                                </p>
+                                <input type="hidden" name="login_flag" value="{{ login_flag }}">
+                                <p class="register">
+                                    <a style="" id="J_loginToRegister" class="register_btn" href="{% url 'dangdang:regist' %}?regist_flag={{ login_flag }}" tabindex="9">立即注册</a>
+                                    <span>使用合作网站登录</span>
+                                </p>
+
+                            </div>
+                        </div>
+
+        </div>
+          </form>
+
+
+
+
+
+      </div>
+    </div>
+    <a class="click_area" href="http://a.dangdang.com/api/data/cpx/link/38930001/1" style="width: 490px;height: 310px;"></a> </div>
+</div>
+
+
+
+
+ <style type="text/css">
+    .footer_nav_box{border-top: 1px solid #ebebeb;width:100%;_width:expression(this.scrollWidth < 960 ? "960px" : "auto");min-width: 960px;padding: 17px 0 50px;}
+    .footer_nav_box a,.footer_nav_box{color: #8c8c8c;font-size: 12px;text-decoration: none;}
+    .footer_nav_box a:hover{color: #f48570;text-decoration: underline;}
+    .footer_nav_box .footer_nav{text-align: center;line-height: 20px;padding-bottom: 17px;padding-top: 25px;}
+    .footer_nav_box .footer_nav span.sep{margin: 0 17px 0 19px;}
+    .footer_nav_box .footer_copyright{line-height: 20px;text-align: center;width: 960px;margin: 0 auto;}
+    .footer_nav_box .footer_copyright span.sep{margin:0 17px 0 19px;}
+    .footer_nav_box .footer_icon{padding: 10px 0 0 340px;width: 640px;margin: 0 auto;height: 77px;}
+    .footer_nav_box .validator,.footer_nav_box .knet{float:left;display:inline;padding:15px 5px 15px;width:135px;height:47px;}
+
+    .footer_copyright {padding: 10px 0 0 0; margin: 0 auto;float: none; width: auto;text-align: center;color: #8c8c8c;}
+    .footer_copyright span, .public_footer .footer_copyright a.footer_img { display: inline-block; float: none; }
+    .footer_copyright a { padding: 0 4px; color: #8c8c8c;font-size: 12px;text-decoration: none;}
+    .footer_copyright a:hover{color: #f48570;text-decoration: underline;}
+    .footer_nav_box .footer_nav .footer_hot_search{display:inline-block;*display:inline;width:50px;position:relative}
+    .footer_nav_box .footer_nav .pos_a_box{position:absolute;left:-251px;top:22px;background-color:#f48570;width:300px;border-radius:8px;text-align:center;height:14px;line-height:14px}
+    .footer_nav_box .footer_nav .pos_a_box a,.footer_nav_box .footer_nav .pos_a_box a:hover,.footer_nav_box .footer_nav .pos_a_box span{padding:0 2px;color:#fff;text-decoration:none}
+    .footer_nav_box .footer_nav .pos_a_box i{display:block;width:0;height:0;line-height:0;font-size:0;border-width:0 4px 4px;border-style:solid;border-color:#fff #fff #f48570 #fff;position:absolute;right:20px;top:-4px}
+</style>
+<div class="footer_nav_box">
+    <div class="footer_nav"><a href="http://static.dangdang.com/topic/2227/176801.shtml" target="_blank" rel="nofollow">公司简介</a><span class="sep">|</span><a href="http://ir.dangdang.com/" target="_blank">Investor Relations</a><span class="sep">|</span><a href="http://zhaopin.dangdang.com" target="_blank">诚聘英才</a><span class="sep">|</span><a href="http://static.dangdang.com/topic/744/200778.shtml" target="_blank">手机当当</a><span class="sep">|</span><a href="http://union.dangdang.com/" target="_blank">网站联盟</a><span class="sep">|</span><a href="http://outlets.dangdang.com/merchants_open" target="_blank">当当招商</a><span class="sep">|</span><a href="http://misc.dangdang.com/groupbuy/Default.aspx" target="_blank" rel="nofollow">机构销售</a><span class="sep">|</span><a href="http://blog.dangdang.com/" target="_blank">官方Blog</a>
+        <script>
+            var setTo = null;
+            function showghotsearch() {
+                clearTimeout(setTo);
+                document.getElementById("hot_search_content").style.display = "block";
+            }
+            function hidehotsearch() {
+                setTo = setTimeout(function() {
+                    document.getElementById("hot_search_content").style.display = "none";
+                }, 100)
+            }
+        </script>   		
+    </div>
+    <div class="footer_copyright"><span>Copyright (C) 当当网 2004-2017, All Rights Reserved</span></div>
+    <div class="footer_copyright"><span><a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP证041189号</a></span><span class="sep">|</span><span>出版物经营许可证 新出发京批字第直0673号</span><span class="sep">|</span><span>食品流通许可证：SP1101011010021855(1-1)</span><br><span>互联网药品信息服务资格证编号：(京)-非经营性-2012-0016</span><span class="sep">|</span><span>京公网安备110101000001号</span></div>
+    <!-- 有三个icon的时候加footer_icon2 -->
+    <div class="footer_icon footer_icon2" style="padding-left: 55px;">
+        <div class="validator"><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001051000098" target="_blank" class="footer_img"><img src="images/validate.gif"></a></div>
+        <div class="knet"><!-- 可信网站LOGO安装开始 -->
+            <script type="text/JavaScript">
+                function CNNIC_change(eleId) {
+                var str = document.getElementById(eleId).href;
+                var str1 = str.substring(0, (str.length - 6));
+                str1 += CNNIC_RndNum(6);
+                document.getElementById(eleId).href = str1;
+                }
+
+                function CNNIC_RndNum(k) {
+                var rnd = "";
+                for (var i = 0; i < k; i++)
+                rnd += Math.floor(Math.random() * 10);
+                return rnd;
+                }
+            </script>
+            <a href="https://ss.knet.cn/verifyseal.dll?sn=2010091900100002234&amp;pa=2940051" tabindex="-1" id="urlknet" target="_blank" rel="nofollow"><img alt="可信网站" name="CNNIC_seal" src="{% static 'images/knetSealLogo.png' %}" oncontextmenu="return false;" onclick="CNNIC_change('urlknet')" width="128" height="47" border="true"></a><!-- 可信网站LOGO安装结束 -->
+        </div>
+        <div class="validator"><a href="http://bj429.com.cn/" target="_blank" class="footer_img"><img src="{% static 'images/7d593c48-48f6-4fc9-85e0-7d6e10dfc2a2.hpvgUvc9' %}"></a></div>
+        <div class="validator"><a id="_pingansec_bottomimagesmall_brand" href="http://si.trustutn.org/info?sn=302161014024825726885&amp;certType=1" target="_blank"><img src="{% static 'images/brand_128_47.png' %}"></a></div>
+        <div class="clear"></div>
+    </div>
+</div>
+</body>
+<script>
+    {% if login_in == 'no' %}
+        document.getElementById('login_in').innerText='用户名或密码错误，登录失败！';
+    {% endif %}
+</script>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load static %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>购物车</title>
+<script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery.1.4.2-min.js' %}"></script>
+	<link rel="shortcut icon" href="{% static 'images/favicon.ico?v=20160901' %}" type="image/x-icon">
+    <link href="{% static 'css/shopping_cart_new.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'css/footer_150526.css' %}" rel="stylesheet" type="text/css" /
+
+
+</head>
+
+<body style="padding-bottom:82px">
+
+<link href="{% static 'css/header_960_150611.css' %}" rel="stylesheet" type="text/css">
+<script src="{% static 'js/pagetop2015_0827.js' %}" charset="utf-8" type="text/javascript"></script>
+
+<div id="hd">
+<div id="tools">
+<div class="tools">
+    <div class="ddnewhead_operate" dd_name="顶链接">
+        
+        <div class="ddnewhead_welcome" >
+            <span id="nickname" style="color: red ">
+                <span class="hi hi_none">欢迎光临当当，请</span>
+                <a href="{% url 'dangdang:login' %}?login_flag=cart" class="login_link">登录</a>
+                <a href="{% url 'dangdang:regist' %}?regist_flag=cart" >免费注册</a></span>
+        </div>
+
+    </div>
+</div>
+</div>
+<div id="header_end"></div>
+<!--CreateDate  2016-09-28 11:30:01--></div>
+<form action="http://search.dangdang.com/search.aspx" id="bootpagetopSearch" name="bootpagetopSearch" method="GET"></form>
+<script type="text/javascript">var nick_num = 0;initHeaderOperate();</script><script type="text/javascript" src="http://orderb.dangdang.com/queryunpaid?callback=Unpaid_Data"></script>
+		<div class="shoppingcart_wrapper" id="ad_cpt_11850"><div><a href="{% url 'dangdang:index' %}" target="_blank" rel="nofollow">
+            <img src="http://img62.ddimg.cn/2017/1/11/2017011111344969879.jpg"></a></div></div>
+<div class="logo_line">
+    <div class="w960">
+        <br>
+        <hr>
+        <div align="center"><span style="font-size: 40px; color: red ;">订单详情</span></div>
+    </div>
+</div>
+<div class="add_line" id="district">
+    <div class="w960">
+    </div>
+</div>
+
+
+
+
+
+{#购物车商品区#}
+{#<div id="cart_main">#}
+{#    {% if cart.cart_items %}#}
+{#    <div class="w960" id="cart">#}
+{#    <ul class="shopping_title" id="j_carttitle">#}
+{#        <li class="f1">#}
+{#            <button class="checknow fn-checkall" type="button" id="j_selectall" style="background: none;border: none;">全选</button></li>#}
+{#        <li class="f2">商品信息</li>#}
+{#        <li class="f3">市场价价（元）</li>#}
+{#        <li class="f3">当当价（元）</li>#}
+{#        <li class="f4">数量</li>#}
+{#        <li class="f4">金额（元）</li>#}
+{#        <li class="f5">操作</li>#}
+{#    </ul>#}
+{##}
+{##}
+{##}
+{#    商品详情#}
+{#    <div class="cart_main">#}
+{#       <div class="fn-shops" id="J_cartContent" >#}
+{#        <div class="fn-shop">#}
+{#            <table border="0" cellspacing="0" cellpadding="0" class="shop_title" style="padding-left:0px;">#}
+{#                <tbody>#}
+{#                <tr>#}
+{#                    <td><a href="javascript:void(0)" dd_name="选中店铺" class="checknow fn-shop-checkall check_on">选中</a></td>#}
+{#                    <td><span class="shop_icon"></span></td> <td><a href="http://www.dangdang.com" target="_blank">当当自营</a></td>#}
+{#                </tbody>#}
+{#            </table>#}
+{##}
+{#            <div class="shopping_list" >#}
+{#            <table width="100%" border="0" cellspacing="0" cellpadding="0">#}
+{##}
+{##}
+{##}
+{##}
+{#                遍历购物车商品#}
+{#                {% for i in  cart.cart_items %}#}
+{#                    <tbody data-stock="22388" data-offline="false" data-productid="24147882" data-timestamp="1484488454000" data-orderforspupormo="0">#}
+{#                        <tr id="tr_424893864" class="  ">#}
+{#                            <td class="row1">#}
+{#                                <input type="checkbox" class="cart_checkbox" style="width:15px; height:15px;" id="checked{{ forloop.counter0 }}" onclick="count('{{ i.book.book_id }}')">#}
+{#                                <span style="display:none; ">{{ i.book.book_id }}</span>#}
+{#                            </td>#}
+{#                            <td class="row_img">#}
+{#                                <a href="http://product.dangdang.com/24147882.html" target="_blank" dd_name="查看详情">#}
+{#                                <img onmouseout="$(this).parent().next().hide()" onmouseover="$(this).parent().next().show()" src="http://img3x2.ddimg.cn/0/17/24147882-1_m.jpg" width="80" height="80">#}
+{#                                </a>#}
+{#                                <div style="display: none;" class="img_big">#}
+{#                                    <a href="http://product.dangdang.com/24147882.html" dd_name="查看详情" target="_blank">#}
+{#                                    <img src="http://img3x2.ddimg.cn/0/17/24147882-1_b.jpg">#}
+{#                                    </a>#}
+{#                                    <span class="arrow"></span>#}
+{#                                </div>#}
+{#                            </td>#}
+{#                            <td class="row_name" style="width:160px;">#}
+{#                                <div class="name">#}
+{#                                    <a href="{% url 'operapp:bookIntro' %}?bookid={{ i.book.book_id }}" title="{{ i.book.book_name }}" target="_blank" dd_name="查看详情" style="word-break:break-all;  word-wrap:break-word;">{{ i.book.book_name }}</a>#}
+{#                                </div>#}
+{#                            </td>#}
+{#                            <td class="row3">#}
+{#                                <span id="price{{ i.book.book_id }}" >{{ i.book.book_price }}</span>#}
+{#                            </td>#}
+{#                            <td class="row3">#}
+{#                                <span id="dprice{{ i.book.book_id }}" >{{ i.book.book_dprice }}</span>#}
+{#                            </td>#}
+{#                            <td data-minbuy="0" class="fn-count-tip row3">#}
+{#                                <span class="amount fn-updatecount " data-value="1">#}
+{#                                    <a dd_name="减少数量" href="javascript:void(0)" onclick="updateJQ(('-'),'{{ i.book.book_id }}')">-</a>#}
+{#                                    <input data-value="1" value="{{ i.amount }}" type="text" id="num{{ i.book.book_id }}" onblur="updateJQ((''),'{{ i.book.book_id }}')">#}
+{#                                    <a dd_name="增加数量" href="javascript:void(0)" onclick="updateJQ(('+'),'{{ i.book.book_id }}')">+</a>#}
+{#                                </span>#}
+{#                            </td>#}
+{#                            <td class="row4">#}
+{#                                <span class="red sums" id="total{{ i.book.book_id }}" >{% widthratio i.book.book_dprice 1 i.amount %}</span>#}
+{#                            </td>#}
+{#                            <td class="row5 ">#}
+{#                                <span><a href="javascript:void(0)" data-item="424893864" class="fn-add-wish" dd_name="加入收藏按钮">移入收藏</a></span>#}
+{#                                <span>#}
+{#                                    <a href="#" onclick="delbook('{{ i.book.book_id }}')" data-item="424893864" class="fn-remove-product" dd_name="删除普通品">删除</a>#}
+{#                                </span>#}
+{#                            </td>#}
+{#                        </tr>#}
+{#                    </tbody>#}
+{#                {% endfor %}#}
+{##}
+{##}
+{##}
+{##}
+{#                <tfoot>#}
+{#                    <tr class="total">#}
+{#                        <td class="row1">&nbsp;#}
+{#                        </td> <td class="row_img">店铺合计</td>#}
+{#                        <td colspan="2">&nbsp;</td>#}
+{#                        <td colspan="3" class="row4">#}
+{#                            <span class="red big ooline alignright cart_total" id="total01">¥0</span>#}
+{#                        </td>#}
+{#                    </tr>#}
+{#                </tfoot>#}
+{#            </table>#}
+{#        </div>#}
+{##}
+{##}
+{##}
+{##}
+{##}
+{#</div>#}
+{##}
+{#    <div id="hide_div" style="height:0px;visibility:hidden;"></div>#}
+{#    <div style="position:static;bottom:-20px;z-index: 101;width:100%;left:0px;">#}
+{#    <div class="shopping_total" id="J_totalMoneyBlock">#}
+{##}
+{#    <div class="shopping_total_right">#}
+{#    <a class="total_btn fn-checkout" href="#" onclick="cartSumbit()" id="checkout_btn" dd_name="结算">结&nbsp;&nbsp;算</a>#}
+{#    <div class="subtotal">#}
+{#    <p><span class="cartsum">总计(不含运费)：</span><span id="total02" class="price cart_total">¥0</span></p>#}
+{#    <p><span class="cartsum">已节省：</span><span id="save" >¥0</span></p>#}
+{#    </div>#}
+{#    </div>#}
+{#    </div>#}
+{#    </div>#}
+{##}
+{#</div>#}
+{#    </div>#}
+{##}
+{#</div>#}
+{#    {% else%}#}
+{#        <div align="center"><span  style="font-size:45px; color:green;">购物车里还没有商品，去   <a href="{% url 'dangdang:index' %}" style="color: red ;" >【主页】</a>选购商品吧，GO</span></div>#}
+{#    {% endif %}#}
+{#</div>#}
+
+
+
+
+<div id="footer" >
+<div class="footer">
+	<div class="footer_nav_box">
+		<div class="footer_copyright"><span>Copyright (C) 当当网 2004-2014, All Rights Reserved</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001051000098" target="_blank" class="footer_img" rel="nofollow"><img src="http://img4.dangdang.com/bottom/validate.gif"></a><span><a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP证041189号</a></span><span>出版物经营许可证&nbsp;新出发京批字第直0673号</span></div>
+	</div>
+</div>
+</div>
+
+
+</body>
+<script>
+    {% if nickname %}
+        console.log(nickname);
+        document.getElementById('nickname').innerHTML='<span class="hi">Hi，\n'+
+        '        <a href="http://myhome.dangdang.com/" class="login_link" target="_blank">\n'+
+        '        <b>{{ nickname }}</b></a>\n'+
+        '        <a href="{% url "dangdang:index" %}" onclick="outFn()" class="login_link">登出</a></span>\n'+
+        '        {% endif %}'
+</script>
+</html>

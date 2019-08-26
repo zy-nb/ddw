@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load static %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script src="{% static 'js/jquery1.4.2.js  ' %}"></script>
+    <script src="{% static 'js/jquery.1.4.2-min.js ' %}"></script>
+	<link rel="shortcut icon" href="images/favicon.ico?v=20160901" type="image/x-icon">
+    <link href="{% static 'css/shopping_cart_new.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'css/footer_150526.css' %}" rel="stylesheet" type="text/css" />
+</head>
+
+<body style="padding-bottom:82px">
+
+<link href="{% static 'css/header_960_150611.css' %}" rel="stylesheet" type="text/css">
+<script src="{% static 'js/pagetop2015_0827.js' %}" charset="gb2312" type="text/javascript"></script>
+
+<script>
+        var dawk_flag1=false,phone_flag2=false;
+        {#登出函数#}
+        function outFn() {
+            var xhr;
+            if (window.ActiveXObject){
+                xhr = new ActiveXObject()
+            } else if (window.XMLHttpRequest){
+                xhr=new XMLHttpRequest()
+            }
+            url="{% url 'dangdang:ajaxOut' %}";
+            xhr.open('get', url, true);
+            xhr.send();
+            xhr.onreadystatechange=function(){
+            if (xhr.readyState ===4 && xhr.status ===200){
+                alert('登出成功！')
+            }
+            }
+        }
+
+
+        function Address() {
+
+            var addID = $('#address').val();
+
+            {% for i in addressList  %}
+                if (addID == "{{ i.id }}") {
+                    $('#address_message').html(
+                        '<li><label><strong>*</strong>收&nbsp;&nbsp;货&nbsp;&nbsp;人：</label><input class="input" type="text" name="name" disabled="disabled" value="{{ i.name }}"></li>' +
+                        '<li><label><strong>*</strong>收货地区：</label><input class="input" type="text" name="region" disabled="disabled " value="{{ i.region }}" ></li>' +
+                        '<li><label><strong>*</strong>详细地址：</label><input class="input" type="text" name="site" disabled="disabled " value="{{ i.site }}"></li>' +
+                        '<li><label><strong>*</strong>邮政编码：</label><input class="input" type="text" name="postal_code" disabled="disabled " value="{{ i.postal_code }}" ></li>' +
+                        '<li><label><strong>*</strong>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</label><input class="input" type="text" name="number" disabled="disabled " value="{{ i.number }}"></li>' +
+                        '<input type="hidden" name="addressFlag" value="1">');
+                }else if(addID=="new"){
+                    $('.input').removeAttr('value');
+                    $('.input').removeAttr('disabled');
+                }
+            {% endfor %}
+        }
+        function sub() {
+            var dawk= /^[1-9][0-9]{5}$/;
+            var phone = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/;
+
+            if  (!dawk.test($('#dawk').val())){
+                alert("邮编填写错误，请重新填写！");
+                    return 0;}
+                else if($('#phone').val() != ""){
+                    if (!phone.test($('#phone').val())){
+                        alert("手机号填写有误，请重新填写！");
+                        return 0;}
+        }}
+
+
+        {#提交订单函数#}
+        function submitFn(){
+
+            inp=document.getElementsByTagName('input');
+            inp1=$('input');
+            var i=1;
+
+            for(;i<6;i++){
+                if (! inp1[i].value) {
+                    alert('填写信息不能为空，请确认后在提交！');
+                    break;
+                }
+            }
+            if (i==6){
+                $('.input').removeAttr('disabled');
+                        console.log(11)
+                        document.forms[0].submit()
+            }
+        }
+
+
+
+
+</script>
+
+
+
+<div id="hd">
+<div id="tools">
+<div class="tools">
+    <div class="ddnewhead_operate" dd_name="顶链接">
+        <div class="ddnewhead_welcome" >
+            {% if nickname %}
+            <span class="hi">Hi，
+                <a href="http://myhome.dangdang.com/" class="login_link" target="_blank">
+                    <b>{{ nickname }}</b>
+                </a>
+                <a href="{% url "dangdang:index" %}" onclick="outFn()" class="login_link">登出</a>
+            </span>
+            {% else %}
+                <span id="nickname" style="color: red ">
+                <span class="hi hi_none">欢迎光临当当，请</span>
+                <a href="{% url 'dangdang:login' %}?login_flag=cart" class="login_link">登录</a>
+                <a href="{% url 'dangdang:regist' %}?regist_flag=cart" >免费注册</a></span>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+<div id="header_end">
+
+</div>
+<!--CreateDate  2016-09-28 11:30:01-->
+</div>
+<script type="text/javascript">var nick_num = 0;initHeaderOperate();</script>
+<script type="text/javascript" src="http://orderb.dangdang.com/queryunpaid?callback=Unpaid_Data"></script>
+
+<div class="shoppingcart_wrapper" id="ad_cpt_11850"><div>
+    <a href="http://a.dangdang.com/tjump.php?q=ddo84XQOf357bOs8tXGg5%2F%2F0oVoDImt3DFWsMqu7ZMSVsfUMeOQJueASNiMLjq%2FdrXMLCKnVfyKEahteAh1ih%2ByKYrKGzhvL20LVbDzObRambBA0YPpivy5hR5foQ4Rt%2BTB" target="_blank" rel="nofollow"><img src="http://img62.ddimg.cn/2017/1/11/2017011111344969879.jpg"></a></div></div>
+<div class="logo_line">
+    <div class="w960">
+        <div class="shopping_procedure01 shopping_procedure ">
+            <span>我的购物车</span>
+            <span class="current">填写订单</span><span>完成订单</span>
+        </div>
+        <div class="logo">
+            <a href="#"><img src="{% static 'images/bz_logo_car.jpg' %}" alt=""></a>
+        </div>
+    </div>
+</div>
+<div class="indent_con">
+	<div class="shdz" align="center" >
+    	<h3>收货相关信息</h3>
+        <br><br>
+             <p style="font-size: 15px;color: #0d0d0d ">▪ 收货地址
+                <span style="padding-left: 30px;">
+                    选择地址信息:
+                    <select name="site" id="address" onchange="Address()">
+                        <option value="new">填写新地址</option>
+                    {% for i in addressList %}
+                        <option value="{{ i.id }}">{{ i.name }}</option>
+                    {% endfor %}
+                    </select>
+                </span>
+            </p>
+
+
+{#        表单提交收货人信息#}
+        <form action="{% url 'operapp:submitOK' %}" method="post">
+            {% csrf_token %}
+            <ul class="shdz_con" id="address_message" style="width:300px;">
+        	<li><label><strong>*</strong>收&nbsp;&nbsp;货&nbsp;&nbsp;人：</label><input type="text"  name="name" ></li>
+        	<li><label><strong>*</strong>收货地区：</label><input type="text" name="region"  ></li>
+            <li><label><strong>*</strong>详细地址：</label><input type="text" name="site" ></li>
+            <li><label><strong>*</strong>邮政编码：</label><input type="text" name="postal_code" id="dawk" onclick="sub()"></li>
+            <li><label><strong>*</strong>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</label><input type="text" name="number" id="phone" onclick="sub()"></li>
+                <input type="hidden" name="addressFlag" value="0">
+            </ul>
+
+
+        <div class="balance"><p>商品金额：¥{{ total }}</p><p class="yfze">应付总额（含运费）：
+            <em>¥{{ total }}</em></p><p>
+            <input type="hidden" name="total" value="{{ total }}">
+            <a href="#" onclick="submitFn()">提交订单</a></p></div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div id="footer">
+<div class="footer">
+	<div class="footer_nav_box">
+		<div class="footer_copyright"><span>Copyright (C) 当当网 2004-2014, All Rights Reserved</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001051000098" target="_blank" class="footer_img" rel="nofollow"><img src="http://img4.dangdang.com/bottom/validate.gif"></a><span><a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP证041189号</a></span><span>出版物经营许可证&nbsp;新出发京批字第直0673号</span></div>
+	</div>
+</div>
+</div>
+    <div class="foot_tip_ad">广告</div>
+    <style>
+        .foot_tip_ad { width:40px; height:40px; font:12px/40px "simsun"; text-align:center; color:#fff; background-color:#474747; position:fixed; right:0; bottom:10px;_position:absolute; _bottom:auto;_top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)));}
+    </style>
+
+
+</body>
+</html>
